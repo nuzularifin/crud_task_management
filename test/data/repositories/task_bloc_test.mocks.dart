@@ -68,12 +68,22 @@ class MockTaskRepository extends _i1.Mock implements _i2.TaskRepository {
       ) as _i3.Future<void>);
 
   @override
-  _i3.Future<void> deleteTask(int? index) => (super.noSuchMethod(
+  _i3.Future<void> deleteTask(String? title) => (super.noSuchMethod(
         Invocation.method(
           #deleteTask,
-          [index],
+          [title],
         ),
         returnValue: _i3.Future<void>.value(),
         returnValueForMissingStub: _i3.Future<void>.value(),
       ) as _i3.Future<void>);
+
+  @override
+  _i3.Future<List<_i4.Task>> getAllTasksByTitle(String? query) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getAllTasksByTitle,
+          [query],
+        ),
+        returnValue: _i3.Future<List<_i4.Task>>.value(<_i4.Task>[]),
+      ) as _i3.Future<List<_i4.Task>>);
 }

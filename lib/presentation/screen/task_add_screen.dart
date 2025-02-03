@@ -115,13 +115,6 @@ class CreateTaskScreenState extends State<TaskAddScreen> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'Title',
-                  style: AppTextStyles.labelblackbold16,
-                ),
-                const SizedBox(
-                  height: 12,
-                ),
                 TextFormField(
                   controller: _titleController,
                   maxLength: 50,
@@ -141,13 +134,6 @@ class CreateTaskScreenState extends State<TaskAddScreen> {
                 const SizedBox(
                   height: 16,
                 ),
-                Text(
-                  'Description',
-                  style: AppTextStyles.labelblackbold16,
-                ),
-                const SizedBox(
-                  height: 12,
-                ),
                 TextFormField(
                   controller: _descriptionController,
                   decoration: InputDecoration(
@@ -162,13 +148,6 @@ class CreateTaskScreenState extends State<TaskAddScreen> {
                 ),
                 const SizedBox(
                   height: 16,
-                ),
-                Text(
-                  'Select Date',
-                  style: AppTextStyles.labelblackbold16,
-                ),
-                const SizedBox(
-                  height: 12,
                 ),
                 TextFormField(
                   controller: _dateController,

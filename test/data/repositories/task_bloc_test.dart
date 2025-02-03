@@ -115,7 +115,7 @@ void main() {
   blocTest<TaskBloc, TaskState>(
     'Emits [TaskDeleted, TaskLoaded] when DeleteTask is followed by GetTasksEvent',
     build: () {
-      when(mockTaskRepository.deleteTask(1)).thenAnswer((_) async {
+      when(mockTaskRepository.deleteTask('test1')).thenAnswer((_) async {
         when(mockTaskRepository.getAllTasks()).thenAnswer((_) async => [
               Task(
                   title: 'test1',
@@ -127,7 +127,7 @@ void main() {
       return taskBloc;
     },
     act: (bloc) async {
-      bloc.add(DeleteTaskEvent(index: 1));
+      bloc.add(DeleteTaskEvent(title: 'test1'));
     },
     expect: () => [
       isA<TaskLoading>(),
@@ -137,7 +137,7 @@ void main() {
           .having((state) => state.tasks.length, 'tasks length', 1),
     ],
     verify: (bloc) {
-      verify(mockTaskRepository.deleteTask(1)).called(1);
+      verify(mockTaskRepository.deleteTask('test1')).called(1);
       verify(mockTaskRepository.getAllTasks()).called(1);
     },
   );
@@ -145,19 +145,19 @@ void main() {
   blocTest<TaskBloc, TaskState>(
     'Emits [TaskLoading, TaskError] when DeleteTaskEvent is called',
     build: () {
-      when(mockTaskRepository.deleteTask(1))
+      when(mockTaskRepository.deleteTask('test1'))
           .thenThrow(Exception('Failed to delete task'));
       return taskBloc;
     },
     act: (bloc) async {
-      bloc.add(DeleteTaskEvent(index: 1));
+      bloc.add(DeleteTaskEvent(title: 'test1'));
     },
     expect: () => [
       isA<TaskLoading>(),
       isA<TaskError>(),
     ],
     verify: (bloc) {
-      verify(mockTaskRepository.deleteTask(1)).called(1);
+      verify(mockTaskRepository.deleteTask('test1')).called(1);
     },
   );
 

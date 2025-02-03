@@ -28,9 +28,19 @@ class UpdateTaskEvent extends TaskEvent {
 }
 
 class DeleteTaskEvent extends TaskEvent {
-  final int index;
-  const DeleteTaskEvent({required this.index});
+  final String title;
+
+  const DeleteTaskEvent({required this.title});
 
   @override
-  List<Object?> get props => [index];
+  List<Object?> get props => [title];
+}
+
+class SearchTaskEvent extends TaskEvent {
+  final String query;
+
+  const SearchTaskEvent({required this.query});
+
+  @override
+  List<Object?> get props => [query];
 }

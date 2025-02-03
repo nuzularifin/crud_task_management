@@ -48,6 +48,7 @@ dependencies:
   mockito: ^5.4.4
   bloc_test: ^10.0.0
   json_annotation: ^4.8.1
+  anim_search_bar: ^2.0.3
 
 dev_dependencies:
   flutter_test:

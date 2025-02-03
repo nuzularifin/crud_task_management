@@ -15,6 +15,8 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
+  TextEditingController _searchController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
@@ -43,7 +45,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
       ),
       body: BlocConsumer<TaskBloc, TaskState>(
         listener: (context, state) {
-          if (state is TaskError) {}
+          if (state is TaskError) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                backgroundColor: AppColors.error,
+                content: Text('Task failed cause : ${state.message}'),
+              ),
+            );
+          }
         },
         builder: (context, state) {
           if (state is TaskLoading) {
@@ -83,53 +92,75 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 
   Widget showListData(TaskLoaded state) {
-    return ListView.builder(
-      shrinkWrap: false,
-      itemCount: state.tasks.isNotEmpty ? state.tasks.length : 0,
-      itemBuilder: (context, index) {
-        return Card(
-          margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          elevation: 4,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: ListTile(
-            onTap: () {
-              openDetailTask(context, state.tasks[index], index);
-            },
-            title: Text(
-              state.tasks[index].title,
-              style: AppTextStyles.labelblackbold16,
-            ),
-            subtitle: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(state.tasks[index].description ?? '',
-                    style: TextStyle(color: Colors.grey[700])),
-                SizedBox(height: 4),
-                Text(
-                  DateFormat('d MMMM, yyyy')
-                      .format(state.tasks[index].dueDate), // Formatting Date
-                  style: TextStyle(
-                      color: Colors.grey[600], fontStyle: FontStyle.italic),
+    return Column(
+      children: [
+        Container(
+          margin: EdgeInsets.only(left: 16, right: 16, top: 12, bottom: 12),
+          child: SearchBar(
+              controller: _searchController,
+              leading: const Icon(Icons.search),
+              onTap: () {
+                _searchController.clear();
+              },
+              onChanged: (value) {
+                context.read<TaskBloc>().add(SearchTaskEvent(query: value));
+              },
+              shape: WidgetStatePropertyAll(RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(8))))),
+        ),
+        Expanded(
+          child: ListView.builder(
+            shrinkWrap: false,
+            itemCount: state.tasks.isNotEmpty ? state.tasks.length : 0,
+            itemBuilder: (context, index) {
+              return Card(
+                margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                elevation: 4,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
                 ),
-              ],
-            ),
-            leading: Icon(
-              Icons.task,
-              color: AppColors.onprogress,
-            ),
-            trailing: IconButton(
-                onPressed: () {
-                  context.read<TaskBloc>().add(DeleteTaskEvent(index: index));
-                },
-                icon: Icon(
-                  Icons.delete_forever,
-                  color: AppColors.error,
-                )),
+                child: ListTile(
+                  onTap: () {
+                    openDetailTask(context, state.tasks[index], index);
+                  },
+                  title: Text(
+                    state.tasks[index].title,
+                    style: AppTextStyles.labelblackbold16,
+                  ),
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(state.tasks[index].description ?? '',
+                          style: TextStyle(color: Colors.grey[700])),
+                      SizedBox(height: 4),
+                      Text(
+                        DateFormat('d MMMM, yyyy').format(
+                            state.tasks[index].dueDate), // Formatting Date
+                        style: TextStyle(
+                            color: Colors.grey[600],
+                            fontStyle: FontStyle.italic),
+                      ),
+                    ],
+                  ),
+                  leading: Icon(
+                    Icons.task,
+                    color: AppColors.onprogress,
+                  ),
+                  trailing: IconButton(
+                      onPressed: () {
+                        context.read<TaskBloc>().add(
+                            DeleteTaskEvent(title: state.tasks[index].title));
+                      },
+                      icon: Icon(
+                        Icons.delete_forever,
+                        color: AppColors.error,
+                      )),
+                ),
+              );
+            },
           ),
-        );
-      },
+        ),
+      ],
     );
   }
 

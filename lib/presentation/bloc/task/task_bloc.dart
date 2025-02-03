@@ -14,6 +14,7 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
     on<GetTaskEvent>(_onGetTask);
     on<DeleteTaskEvent>(_onDeleteTask);
     on<UpdateTaskEvent>(_onUpdateTask);
+    on<SearchTaskEvent>(_onSearchTask);
   }
 
   void _onAddTask(AddTaskEvent event, Emitter<TaskState> emit) async {
@@ -48,7 +49,7 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
   void _onDeleteTask(DeleteTaskEvent event, Emitter<TaskState> emit) async {
     emit(TaskLoading());
     try {
-      await taskRepository.deleteTask(event.index);
+      await taskRepository.deleteTask(event.title);
       emit(TaskDeleted());
       add(GetTaskEvent());
     } catch (e) {
@@ -67,6 +68,18 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
     } catch (e) {
       emit(TaskError(
         message: 'Failed to update task: $e',
+      ));
+    }
+  }
+
+  void _onSearchTask(SearchTaskEvent event, Emitter<TaskState> emit) async {
+    emit(TaskLoading());
+    try {
+      final tasks = await taskRepository.getAllTasksByTitle(event.query);
+      emit(TaskLoaded(tasks: tasks));
+    } catch (e) {
+      emit(TaskError(
+        message: 'Failed to search task: $e',
       ));
     }
   }

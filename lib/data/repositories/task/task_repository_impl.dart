@@ -13,8 +13,8 @@ class TaskRepositoryImpl implements TaskRepository {
   }
 
   @override
-  Future<void> deleteTask(int index) async {
-    await localTaskDataSource.deleteTask(index);
+  Future<void> deleteTask(String title) async {
+    await localTaskDataSource.deleteTask(title);
   }
 
   @override
@@ -31,5 +31,16 @@ class TaskRepositoryImpl implements TaskRepository {
   @override
   Future<void> updateTask(int index, Task task) async {
     await localTaskDataSource.updateTask(index, task.toTaskModel());
+  }
+
+  @override
+  Future<List<Task>> getAllTasksByTitle(String query) async {
+    final result = await localTaskDataSource.getAllTasksByTitle(query);
+    return result
+        .map((model) => Task(
+            title: model.title,
+            description: model.description,
+            dueDate: model.dueDate))
+        .toList();
   }
 }
