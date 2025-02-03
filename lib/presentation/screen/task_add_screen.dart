@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_crud_task_management/core/themes/app_colors.dart';
+import 'package:flutter_crud_task_management/core/themes/app_text_styles.dart';
 import 'package:flutter_crud_task_management/domain/entities/task.dart';
 import 'package:flutter_crud_task_management/presentation/bloc/task/task_bloc.dart';
 import 'package:intl/intl.dart';
@@ -111,7 +112,16 @@ class CreateTaskScreenState extends State<TaskAddScreen> {
           child: Form(
             key: _formKey,
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Text(
+                  'Title',
+                  style: AppTextStyles.labelblackbold16,
+                ),
+                const SizedBox(
+                  height: 12,
+                ),
                 TextFormField(
                   controller: _titleController,
                   maxLength: 50,
@@ -131,6 +141,13 @@ class CreateTaskScreenState extends State<TaskAddScreen> {
                 const SizedBox(
                   height: 16,
                 ),
+                Text(
+                  'Description',
+                  style: AppTextStyles.labelblackbold16,
+                ),
+                const SizedBox(
+                  height: 12,
+                ),
                 TextFormField(
                   controller: _descriptionController,
                   decoration: InputDecoration(
@@ -146,11 +163,18 @@ class CreateTaskScreenState extends State<TaskAddScreen> {
                 const SizedBox(
                   height: 16,
                 ),
+                Text(
+                  'Select Date',
+                  style: AppTextStyles.labelblackbold16,
+                ),
+                const SizedBox(
+                  height: 12,
+                ),
                 TextFormField(
                   controller: _dateController,
                   readOnly: true, // Biar user tidak bisa ketik manual
                   decoration: InputDecoration(
-                    labelText: 'Select Date',
+                    labelText: 'due date',
                     suffixIcon: IconButton(
                       icon: const Icon(Icons.calendar_today),
                       onPressed: () => _selectDate(context),
@@ -165,7 +189,7 @@ class CreateTaskScreenState extends State<TaskAddScreen> {
                   },
                 ),
                 const SizedBox(
-                  height: 16,
+                  height: 32,
                 ),
                 SizedBox(
                   width: double.infinity,
@@ -195,7 +219,9 @@ class CreateTaskScreenState extends State<TaskAddScreen> {
                         }
                       }
                     },
-                    child: const Text('Submit'),
+                    child: const Text(
+                      'Submit',
+                    ),
                   ),
                 )
               ],

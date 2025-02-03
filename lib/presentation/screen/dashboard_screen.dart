@@ -58,7 +58,23 @@ class _DashboardScreenState extends State<DashboardScreen> {
           return const SizedBox(
             height: double.infinity,
             child: Center(
-              child: Text('Empty Task'),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    size: 40,
+                    Icons.warning_amber_rounded,
+                    color: AppColors.warning,
+                  ),
+                  SizedBox(
+                    height: 16,
+                  ),
+                  Text(
+                    'Empty Task',
+                    style: AppTextStyles.labelblackbold16,
+                  ),
+                ],
+              ),
             ),
           );
         },
