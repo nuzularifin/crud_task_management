@@ -24,7 +24,13 @@ CRUD Task Management adalah aplikasi manajemen tugas sederhana yang dibangun men
    Pastikan emulator atau perangkat fisik sudah terhubung.
    **Sebelum melakukan running code dibawah install atau tambahkan plugin build_runner pada pubspec.yaml**
    **ada juga yang menggunakan @generate or import or part**
-
+   
+4. **Login Part**
+   ```sh
+   username : eve.holt@reqres.in
+   password : cityslicka
+   confirmPassword : cityslicka
+   ```
 ## Arsitektur yang Digunakan
 
 Aplikasi ini menerapkan **Clean Architecture** dengan pemisahan kode menjadi beberapa lapisan utama:
