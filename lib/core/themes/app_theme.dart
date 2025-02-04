@@ -84,4 +84,19 @@ class AppTheme {
       ),
     ),
   );
+
+  static ButtonStyle buttonPrimary = ElevatedButton.styleFrom(
+    elevation: 4,
+    padding: EdgeInsets.all(16),
+    textStyle: TextStyle(
+      fontWeight: FontWeight.bold,
+      fontSize: 16,
+      color: Colors.white,
+    ),
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.all(
+        Radius.circular(8),
+      ),
+    ),
+  );
 }

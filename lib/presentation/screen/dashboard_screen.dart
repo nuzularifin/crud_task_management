@@ -95,8 +95,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return Column(
       children: [
         Container(
-          margin: EdgeInsets.only(left: 16, right: 16, top: 12, bottom: 12),
+          margin:
+              const EdgeInsets.only(left: 16, right: 16, top: 12, bottom: 12),
           child: SearchBar(
+              hintText: 'Search Task....',
               controller: _searchController,
               leading: const Icon(Icons.search),
               onTap: () {
@@ -105,7 +107,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               onChanged: (value) {
                 context.read<TaskBloc>().add(SearchTaskEvent(query: value));
               },
-              shape: WidgetStatePropertyAll(RoundedRectangleBorder(
+              shape: const WidgetStatePropertyAll(RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(8))))),
         ),
         Expanded(

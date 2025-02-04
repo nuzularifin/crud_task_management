@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_crud_task_management/core/themes/app_colors.dart';
-import 'package:flutter_crud_task_management/core/themes/app_text_styles.dart';
+import 'package:flutter_crud_task_management/core/themes/app_theme.dart';
 import 'package:flutter_crud_task_management/domain/entities/task.dart';
 import 'package:flutter_crud_task_management/presentation/bloc/task/task_bloc.dart';
 import 'package:intl/intl.dart';
@@ -132,7 +132,7 @@ class CreateTaskScreenState extends State<TaskAddScreen> {
                   validator: _validateTitle,
                 ),
                 const SizedBox(
-                  height: 16,
+                  height: 24,
                 ),
                 TextFormField(
                   controller: _descriptionController,
@@ -147,7 +147,7 @@ class CreateTaskScreenState extends State<TaskAddScreen> {
                   validator: _validateTitle,
                 ),
                 const SizedBox(
-                  height: 16,
+                  height: 24,
                 ),
                 TextFormField(
                   controller: _dateController,
@@ -173,8 +173,7 @@ class CreateTaskScreenState extends State<TaskAddScreen> {
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue[400]),
+                    style: AppTheme.buttonPrimary,
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         // Handle login logic
